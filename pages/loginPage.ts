@@ -4,6 +4,13 @@ import {Page} from "playwright/test";
 export default class LoginPage{
   constructor (public page: Page){}
 
+  async loginMethod(email:string, password: string){
+    await this.enterEmail(email);
+    await this.enterPassword(password);
+    await this.clickContinue();
+
+  }
+
   async enterEmail(email: string)
     {
     await this.page.getByPlaceholder('E-Mail Address').fill(email);

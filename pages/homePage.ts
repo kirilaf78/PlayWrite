@@ -4,7 +4,8 @@ import {Page} from "playwright/test";
 export default class HomePage{
   constructor (public page: Page){}
   async clickProductIcon(){
-    await this.page.locator('a').filter({ hasText: 'Windows' }).click();
+    await this.page.getByLabel('2 / 8').getByRole('link').click();
+    //await this.page.locator('a').filter({ hasText: 'Windows' }).click();
 
   }
 

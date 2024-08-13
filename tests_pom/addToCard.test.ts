@@ -23,14 +23,22 @@ test('register', async ({ page, baseURL }) => {
 test('login', async ({ page, baseURL }) => {
     const login = new LoginPage(page);
     await page.goto(`${baseURL}route=account/login`)
-    await login.enterEmail(email);
-    await login.enterPassword(password);
-    await login.clickContinue();
-
+    await login.loginMethod(email, password)
+    await expect(page.getByRole('heading', { name: 'My Account' })).toBeVisible();
 });
 
-test('addToCard', async ({ page }) => {
-
+test('addToCard', async ({ page, baseURL }) => {
+    const home = new HomePage(page)
+    const login = new LoginPage(page)
+    await page.goto(`${baseURL}route=account/login`);
+    await login.loginMethod(email, password)
+    await page.goto(`${baseURL}route=common/home`);
+    await home.clickProductIcon()
+    await home.hoverOver()
+    await home.addToBasket()
+    await home.viewCard()
+    const isProductVisible = await home.IsProductInBasket();
+    await expect(isProductVisible).toBeVisible;
 
 
 
